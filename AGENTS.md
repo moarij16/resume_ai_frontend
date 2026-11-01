@@ -90,10 +90,12 @@ src/
 - Lists are unpaginated arrays. The `DataTable` sorts, searches and paginates on the client.
 - When PATCHing `resume_data`, preserve `raw_text`. Every scan and generator on the backend
   depends on it.
-- Known backend quirks the UI works around: soft-deleted rows still come back from list
-  endpoints, so deletes remove the row from the cache; `breakdown.resume_length` is always null,
-  so the UI reads `scan_result.resume_length_score`; AI failures are 503s with provider text,
-  which the UI must not show to users.
+- The API only returns the signed-in user's own, non-deleted records; other users' IDs come back
+  as 404 (detail routes) or "X not found." field errors (request bodies).
+- AI failures are 503s whose `detail` is a fixed, user-facing message (unavailable / busy /
+  failed). Show it as-is.
+- Known backend quirk the UI works around: `breakdown.resume_length` is always null, so the UI
+  reads `scan_result.resume_length_score`.
 
 ## Don'ts
 

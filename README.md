@@ -29,6 +29,12 @@ npm run dev                      # http://localhost:3000 (start the Django API f
 Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui ·
 TanStack Query, Form and Table · Zod · Vitest, MSW and Playwright
 
+## Deploy (Vercel)
+
+Import this repo as a Vercel project (Next.js is detected) and set one environment variable:
+`DJANGO_API_URL=https://<your-api>.vercel.app/api/v1`. The API deploys as its own Vercel project;
+the full walkthrough is in the API repo's `docs/deploy.md`.
+
 ## Docs
 
 | Doc                                          | What's in it                                       |

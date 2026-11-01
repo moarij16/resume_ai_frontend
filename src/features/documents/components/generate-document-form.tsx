@@ -26,20 +26,12 @@ import {
 import { JobSelect } from "@/features/jobs/components/job-select"
 import { ResumeSelect } from "@/features/resumes/components/resume-select"
 import { useResumes } from "@/features/resumes/hooks"
-import { getErrorMessage, isApiError } from "@/lib/http/errors"
+import { getErrorMessage } from "@/lib/http/errors"
 import { cn } from "@/lib/utils"
 import type { DocumentType } from "@/types/api"
 
 import { useGenerateDocument } from "../hooks"
 import { DOCUMENT_TYPE_LIST, DOCUMENT_TYPES, isDocumentType } from "../registry"
-
-/** Upstream AI failures (503) carry provider internals in `detail`; never show those to users. */
-function generationErrorMessage(error: unknown) {
-  if (isApiError(error) && error.status >= 500) {
-    return "The AI service couldn't generate this document right now. Please try again in a moment."
-  }
-  return getErrorMessage(error)
-}
 
 export function GenerateDocumentForm() {
   const router = useRouter()
@@ -148,7 +140,10 @@ export function GenerateDocumentForm() {
             {generate.isError ? (
               <Alert variant="destructive">
                 <AlertTitle>Generation failed</AlertTitle>
-                <AlertDescription>{generationErrorMessage(generate.error)}</AlertDescription>
+                <AlertDescription>
+                  {/* The API returns user-facing messages for AI failures (unavailable, busy, failed). */}
+                  {getErrorMessage(generate.error)}
+                </AlertDescription>
                 <AlertAction>
                   <Button type="button" size="sm" variant="outline" onClick={submit}>
                     <RotateCcwIcon data-icon="inline-start" /> Retry

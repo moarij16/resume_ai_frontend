@@ -87,7 +87,7 @@ export function UploadResumeDialog({ trigger }: { trigger?: ReactNode }) {
               file={file}
               onFileChange={handleFileChange}
               onReject={(message) => toast.error(message)}
-              hint="PDF or DOCX, up to 5 MB"
+              hint="PDF or DOCX, up to 4 MB"
               disabled={upload.isPending}
             />
             <Field>

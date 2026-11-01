@@ -6,6 +6,9 @@ import { forwardWithRefresh } from "@/server/forward"
 import { clearSession, writeSession } from "@/server/session"
 import { refreshTokens } from "@/server/token-refresher"
 
+// AI generation runs synchronously on the backend; match its 60s function limit.
+export const maxDuration = 60
+
 const FORWARDED_REQUEST_HEADERS = ["content-type", "accept"]
 const FORWARDED_RESPONSE_HEADERS = ["content-type", "content-disposition", "cache-control"]
 

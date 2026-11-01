@@ -1,8 +1,11 @@
 import type { Accept } from "react-dropzone"
 import { z } from "zod"
 
-/** Mirrors the backend's upload validation (`resumes/serializers.py`). */
-export const RESUME_MAX_BYTES = 5 * 1024 * 1024
+/**
+ * Mirrors the backend's upload validation (`MAX_UPLOAD_SIZE`). Capped at 4 MB
+ * because Vercel functions reject request bodies over 4.5 MB.
+ */
+export const RESUME_MAX_BYTES = 4 * 1024 * 1024
 export const RESUME_ACCEPT: Accept = {
   "application/pdf": [".pdf"],
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
